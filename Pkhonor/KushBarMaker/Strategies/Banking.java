@@ -4,6 +4,7 @@ import KushBarMaker.Data.Constants;
 import KushBarMaker.Data.Variables;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.input.Keyboard;
+import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
 import org.rev317.min.Loader;
 import org.rev317.min.api.methods.*;
@@ -13,54 +14,51 @@ import org.rev317.min.api.wrappers.SceneObject;
 public class Banking implements Strategy {
     @Override
     public boolean activate() {
-        return (Variables.Place == 0 && Inventory.containts(Variables.GetBar()) && !Inventory.containts(Variables.GetOre())
-                || Inventory.isEmpty() && Variables.Place == 0);
+        return (Variables.Place == 0 && !Inventory.contains(Variables.GetOre()));
     }
 
     @Override
     public void execute() {
-        Bank.open();
-        Time.sleep(1000);
-        Time.sleep(() -> Game.getOpenInterfaceId() == 23350 && Bank.getBank().distanceTo() <= 1, 5000);
-        Variables.GainedAmount = Variables.GainedAmount + Inventory.getCount(Variables.GetBar());
-        //region Deposit
-        Menu.sendAction(646,451,46,23412,1);
-        Time.sleep(1000);
-        Time.sleep(() -> !Inventory.containts(Variables.GetBar()), 2000);
-        //endregion
-        //region withdraw
-        if(Variables.GetSelectedBar() == 0 && !Inventory.containts(Variables.GetBar())){
-            Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
-            Time.sleep(1000);
-            Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
-            Time.sleep(() -> (Inventory.getCount(Variables.GetOre()) == Variables.GetOreAmount()), 500);
-            Menu.sendAction(431, Variables.GetReserveOre(), getBankSlot(Variables.GetReserveOre()), 5382, 4);
-            Time.sleep(1000);
-            Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetReserveOreAmount()));
-            Time.sleep(1000);
-            Time.sleep(() -> (Inventory.getCount(Variables.GetReserveOre()) == Variables.GetReserveOreAmount()), 500);
-        }
-        else{
-            Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
-            Time.sleep(1000);
-            Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
-            Time.sleep(1000);
-            Time.sleep(() -> (Inventory.getCount(Variables.GetOre()) == Variables.GetOreAmount()), 1000);
-            if(Variables.GetCoalAmount() > 0) {
+        if (Bank.getBank() != null){
+            Bank.open();
+            Time.sleep(() -> Game.getOpenInterfaceId() == 23350,5000);
+            if (Game.getOpenInterfaceId() == 23350){
+                Variables.GainedAmount = Variables.GainedAmount + Inventory.getCount(Variables.GetBar());
+                Time.sleep(200);
+                Menu.sendAction(646,556,97,23412,1);
+            }
+            Time.sleep(() -> {
+                return Inventory.isEmpty();
+            },4000);
+
+            Time.sleep(300);
+            if(Variables.GetSelectedBar() == 0 && Inventory.isEmpty() ){
+                Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
+                Time.sleep(1200);
+                Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
+                Time.sleep(() -> Inventory.getCount(Variables.GetOre()) > 0,3000);
+
+                Menu.sendAction(431, Variables.GetReserveOre(), getBankSlot(Variables.GetReserveOre()), 5382, 4);
+                Time.sleep(1200);
+                Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetReserveOreAmount()));
+                Time.sleep(() -> (Inventory.getCount(Variables.GetReserveOre()) > 0), 3000);
+            }
+            else if (Inventory.isEmpty()){
+                Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
+                Time.sleep(1200);
+                Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
+                Time.sleep(() -> (Inventory.getCount(Variables.GetOre()) > 0), 3000);
+
                 Menu.sendAction(431, Constants.CoalOre, getBankSlot(Constants.CoalOre), 5382, 4);
                 Time.sleep(1200);
                 Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetCoalAmount()));
-                Time.sleep(500);
-                Time.sleep(() -> (Inventory.getCount(Constants.CoalOre) == Variables.GetCoalAmount()), 500);
+                Time.sleep(() -> (Inventory.getCount(Constants.CoalOre) > 0), 3000);
+                }
+            Menu.clickButton(5384);
+            Time.sleep(() -> Game.getOpenInterfaceId() != 23350,3000);
             }
-            Time.sleep(() -> (Inventory.getCount(Constants.CoalOre) == Variables.GetCoalAmount()), 500);
         }
-        //endregion
-        Menu.sendAction(200,229,5,5384,1);
-        Time.sleep(600);
-        Time.sleep(() -> !Bank.isOpen(),500);
 
-    }
     public static int getBankSlot(int id) {
 
         int[] bankIds = Loader.getClient().getInterfaceCache()[5382].getItems();

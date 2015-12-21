@@ -1,5 +1,6 @@
 package KushBarMaker.Strategies;
 
+
 import KushBarMaker.Data.Constants;
 import KushBarMaker.Data.Variables;
 import org.parabot.environment.api.utils.Time;
@@ -11,18 +12,18 @@ import org.rev317.min.api.wrappers.SceneObject;
 public class MakeBar implements Strategy {
     @Override
     public boolean activate() {
-        return Inventory.containts(Variables.GetOre() )&& Players.getMyPlayer().getAnimation() == -1;
+        return Inventory.contains(Variables.GetOre()) && Players.getMyPlayer().getAnimation() == -1;
     }
 
     @Override
     public void execute() {
         SceneObject[] Furnace = SceneObjects.getNearest(Constants.Furnace);
-        if (Furnace.length >0 && Furnace != null){
-                Furnace[0].interact(0);
-                Time.sleep(500);
-                Time.sleep(() -> Game.getOpenBackDialogId() != -1,4000);
 
-            if (Game.getOpenBackDialogId() == 2400){
+        if (Inventory.contains(Variables.GetOre()) && Furnace != null){
+            Furnace[0].interact(SceneObjects.Option.FIRST);
+            Time.sleep(() -> Game.getOpenBackDialogId() == Constants.BarDialog,5600);
+        if (Game.getOpenBackDialogId() == Constants.BarDialog){
+            Time.sleep(200);
             switch (Variables.GetSelectedBar()) {
                 case 0:
                     Menu.sendAction(315, 87359488, 48, 2414, 1);
@@ -59,10 +60,11 @@ public class MakeBar implements Strategy {
                 default:
                     System.out.println("Something went wrong please contact the developer.");
                 }
-                Time.sleep(1000);
-                Keyboard.getInstance().sendKeys(String.valueOf(28));
-                Time.sleep(1000);
-                Time.sleep(() -> !Inventory.containts(Variables.GetOre()),6000);
+            Time.sleep(1200);
+            Keyboard.getInstance().sendKeys(String.valueOf(28));
+            while (Inventory.contains(Variables.GetOre())){
+                Time.sleep(500);
+                }
             }
         }
     }

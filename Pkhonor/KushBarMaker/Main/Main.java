@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-@ScriptManifest(author = "TheKushStyle" ,name = "Kush Bar Maker",category = Category.SMITHING,version = 1.1,description =
+@ScriptManifest(author = "TheKushStyle" ,name = "Kush Bar Maker",category = Category.SMITHING,version = 1.2,description =
         "Makes Bars",servers = "PkHonor")
 public class Main extends Script implements Paintable{
     private final ArrayList<Strategy> StuffToDO = new ArrayList<Strategy>();
@@ -42,7 +42,7 @@ public class Main extends Script implements Paintable{
     @Override
     public void paint(Graphics graphics) {
         Font font1 = new Font("Rockwell Extra Bold", Font.BOLD, 15);
-        graphics.setColor(Color.BLUE);
+        graphics.setColor(Color.green);
         graphics.drawImage(imgchat,0,337,null);
         graphics.setFont(font1);
         graphics.drawString("Total Produce: " + Variables.GainedAmount, 332, 420);

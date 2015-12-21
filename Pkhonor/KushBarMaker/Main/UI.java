@@ -76,79 +76,77 @@ public class UI extends JFrame {
         panel.add(PlaceBox);
 
         JButton StartButton = new JButton("Start");
-        StartButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                int OreSelect = BarBox.getSelectedIndex();
-                switch (OreSelect) {
-                    case 0:
-                        Variables.OreAmount = 12;
-                        Variables.ResOreAmount = 12;
-                        Variables.Ore = Constants.CopperOre;
-                        Variables.OreRes = Constants.TinOre;
-                        Variables.SelectedBar = 0;
-                        Variables.Bar = Constants.BronzeBar;
-                        break;
-                    case 1:
-                        Variables.OreAmount = 28;
-                        Variables.Ore = Constants.IronOre;
-                        Variables.SelectedBar = 1;
-                        Variables.Bar = Constants.IronBar;
-                        break;
-                    case 2:
-                        Variables.OreAmount = 28;
-                        Variables.Ore = Constants.SilverOre;
-                        Variables.SelectedBar = 2;
-                        Variables.Bar = Constants.SilverBar;
-                        break;
-                    case 3:
-                        Variables.OreAmount = 9;
-                        Variables.CoalAmount = 18;
-                        Variables.Ore = Constants.IronOre;
-                        Variables.SelectedBar = 3;
-                        Variables.Bar = Constants.SteelBar;
-                        break;
-                    case 4:
-                        Variables.OreAmount = 28;
-                        Variables.Ore = Constants.GoldOre;
-                        Variables.SelectedBar = 4;
-                        Variables.Bar = Constants.GoldBar;
-                        break;
-                    case 5:
-                        Variables.OreAmount = 9;
-                        Variables.CoalAmount = 18;
-                        Variables.Ore = Constants.MithrilOre;
-                        Variables.SelectedBar = 5;
-                        Variables.Bar = Constants.MithrilBar;
-                        break;
-                    case 6:
-                        Variables.OreAmount = 7;
-                        Variables.CoalAmount = 22;
-                        Variables.Ore = Constants.AdamantOre;
-                        Variables.SelectedBar = 6;
-                        Variables.Bar = Constants.AdamantBar;
-                        break;
-                    case 7:
-                        Variables.OreAmount = 3;
-                        Variables.CoalAmount = 26;
-                        Variables.Ore = Constants.RuneOre;
-                        Variables.SelectedBar = 7;
-                        Variables.Bar = Constants.RuneBar;
-                        break;
-                    default:
-                        System.out.println("Something went wrong please contact the developer.");
-                }
-                int Place = PlaceBox.getSelectedIndex();
-                switch (Place){
-                    case 0: Variables.Place = 0;
-                        break;
-                    case 1: Variables.Place = 1;
-                        break;
-                    default:
-                        System.out.println("Something went wrong please contact the developer.");
-                }
-                setVisible(false);
-                dispose();
+        StartButton.addActionListener(arg0 -> {
+            int OreSelect = BarBox.getSelectedIndex();
+            switch (OreSelect) {
+                case 0:
+                    Variables.OreAmount = 12;
+                    Variables.ResOreAmount = 12;
+                    Variables.Ore = Constants.CopperOre;
+                    Variables.OreRes = Constants.TinOre;
+                    Variables.SelectedBar = 0;
+                    Variables.Bar = Constants.BronzeBar;
+                    break;
+                case 1:
+                    Variables.OreAmount = 28;
+                    Variables.Ore = Constants.IronOre;
+                    Variables.SelectedBar = 1;
+                    Variables.Bar = Constants.IronBar;
+                    break;
+                case 2:
+                    Variables.OreAmount = 28;
+                    Variables.Ore = Constants.SilverOre;
+                    Variables.SelectedBar = 2;
+                    Variables.Bar = Constants.SilverBar;
+                    break;
+                case 3:
+                    Variables.OreAmount = 9;
+                    Variables.CoalAmount = 18;
+                    Variables.Ore = Constants.IronOre;
+                    Variables.SelectedBar = 3;
+                    Variables.Bar = Constants.SteelBar;
+                    break;
+                case 4:
+                    Variables.OreAmount = 28;
+                    Variables.Ore = Constants.GoldOre;
+                    Variables.SelectedBar = 4;
+                    Variables.Bar = Constants.GoldBar;
+                    break;
+                case 5:
+                    Variables.OreAmount = 9;
+                    Variables.CoalAmount = 18;
+                    Variables.Ore = Constants.MithrilOre;
+                    Variables.SelectedBar = 5;
+                    Variables.Bar = Constants.MithrilBar;
+                    break;
+                case 6:
+                    Variables.OreAmount = 7;
+                    Variables.CoalAmount = 22;
+                    Variables.Ore = Constants.AdamantOre;
+                    Variables.SelectedBar = 6;
+                    Variables.Bar = Constants.AdamantBar;
+                    break;
+                case 7:
+                    Variables.OreAmount = 3;
+                    Variables.CoalAmount = 26;
+                    Variables.Ore = Constants.RuneOre;
+                    Variables.SelectedBar = 7;
+                    Variables.Bar = Constants.RuneBar;
+                    break;
+                default:
+                    System.out.println("Something went wrong please contact the developer.");
             }
+            int Place = PlaceBox.getSelectedIndex();
+            switch (Place){
+                case 0: Variables.Place = 0;
+                    break;
+                case 1: Variables.Place = 1;
+                    break;
+                default:
+                    System.out.println("Something went wrong please contact the developer.");
+            }
+            setVisible(false);
+            dispose();
         });
 
         StartButton.setBackground(UIManager.getColor("ComboBox.buttonShadow"));
@@ -162,7 +160,7 @@ public class UI extends JFrame {
 
 
 
-        JLabel NoteLael = new JLabel("Note: you need 80 Smithing,fishing,woodcutting and firemaking when using Skilling zone");
+        JLabel NoteLael = new JLabel("Note: you need 80 Smithing,fishing,woodcutting and Firemaking when using Skilling zone");
         NoteLael.setBounds(10, 152, 433, 18);
         panel.add(NoteLael);
 

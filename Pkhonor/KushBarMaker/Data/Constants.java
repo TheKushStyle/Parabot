@@ -20,6 +20,7 @@ public class Constants {
     public final static int AdamantBar = 2362;//probably
     public final static int RuneBar = 2364;//probably
 
+    public final static int BarDialog = 2400;
     public final static int Furnace = 2781;
     public final static int FurnaceSkill = 2643;
     public final static int DepositChest = 3193;
