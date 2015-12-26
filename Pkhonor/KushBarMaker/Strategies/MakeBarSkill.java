@@ -12,14 +12,14 @@ import org.rev317.min.api.wrappers.SceneObject;
 public class MakeBarSkill implements Strategy {
     @Override
     public boolean activate() {
-        return Inventory.containts(Variables.GetOre() )&& Players.getMyPlayer().getAnimation() == -1;
+        return Inventory.contains(Variables.GetOre() )&& Players.getMyPlayer().getAnimation() == -1;
     }
 
     @Override
     public void execute() {
         SceneObject[] Furnace = SceneObjects.getNearest(Constants.FurnaceSkill);
         if (Furnace.length >0 && Furnace != null){
-            Furnace[0].interact(0);
+            Furnace[0].interact(SceneObjects.Option.FIRST);
             Time.sleep(500);
             Time.sleep(() -> Game.getOpenBackDialogId() != -1,4000);
 
@@ -63,7 +63,7 @@ public class MakeBarSkill implements Strategy {
                 Time.sleep(1000);
                 Keyboard.getInstance().sendKeys(String.valueOf(28));
                 Time.sleep(1000);
-                Time.sleep(() -> !Inventory.containts(Variables.GetOre()),6000);
+                Time.sleep(() -> !Inventory.contains(Variables.GetOre()),6000);
             }
         }
 

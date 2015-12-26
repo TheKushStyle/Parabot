@@ -2,6 +2,7 @@ package KushBarMaker.Main;
 
 import KushBarMaker.Data.Constants;
 import KushBarMaker.Data.Variables;
+import org.rev317.min.api.methods.Skill;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -69,7 +70,7 @@ public class UI extends JFrame {
         panel.add(BarBox);
 
         JComboBox PlaceBox = new JComboBox();
-        PlaceBox.setModel(new DefaultComboBoxModel(new String[] {"Smithing Teleport", "Skilling Zone"}));
+        PlaceBox.setModel(new DefaultComboBoxModel(new String[] {"Smithing Teleport", "Skilling Zone","SuperHeat (Must have FireStaff Equiped)"}));
         PlaceBox.setSelectedIndex(0);
         PlaceBox.setBackground(SystemColor.controlShadow);
         PlaceBox.setBounds(177, 114, 232, 32);
@@ -80,8 +81,8 @@ public class UI extends JFrame {
             int OreSelect = BarBox.getSelectedIndex();
             switch (OreSelect) {
                 case 0:
-                    Variables.OreAmount = 12;
-                    Variables.ResOreAmount = 12;
+                    Variables.OreAmount = 14;
+                    Variables.ResOreAmount = 14;
                     Variables.Ore = Constants.CopperOre;
                     Variables.OreRes = Constants.TinOre;
                     Variables.SelectedBar = 0;
@@ -92,12 +93,16 @@ public class UI extends JFrame {
                     Variables.Ore = Constants.IronOre;
                     Variables.SelectedBar = 1;
                     Variables.Bar = Constants.IronBar;
+                    Variables.OreAmountMagic = 27;
+                    Variables.CoalAmountMagic = 0;
                     break;
                 case 2:
                     Variables.OreAmount = 28;
                     Variables.Ore = Constants.SilverOre;
                     Variables.SelectedBar = 2;
                     Variables.Bar = Constants.SilverBar;
+                    Variables.OreAmountMagic = 27;
+                    Variables.CoalAmountMagic = 0;
                     break;
                 case 3:
                     Variables.OreAmount = 9;
@@ -105,12 +110,16 @@ public class UI extends JFrame {
                     Variables.Ore = Constants.IronOre;
                     Variables.SelectedBar = 3;
                     Variables.Bar = Constants.SteelBar;
+                    Variables.OreAmountMagic = 13;
+                    Variables.CoalAmountMagic = 13;
                     break;
                 case 4:
                     Variables.OreAmount = 28;
                     Variables.Ore = Constants.GoldOre;
                     Variables.SelectedBar = 4;
                     Variables.Bar = Constants.GoldBar;
+                    Variables.OreAmountMagic = 27;
+                    Variables.CoalAmountMagic = 0;
                     break;
                 case 5:
                     Variables.OreAmount = 9;
@@ -118,20 +127,26 @@ public class UI extends JFrame {
                     Variables.Ore = Constants.MithrilOre;
                     Variables.SelectedBar = 5;
                     Variables.Bar = Constants.MithrilBar;
+                    Variables.OreAmountMagic = 9;
+                    Variables.CoalAmountMagic = 18;
                     break;
                 case 6:
                     Variables.OreAmount = 7;
-                    Variables.CoalAmount = 22;
+                    Variables.CoalAmount = 21;
                     Variables.Ore = Constants.AdamantOre;
                     Variables.SelectedBar = 6;
                     Variables.Bar = Constants.AdamantBar;
+                    Variables.OreAmountMagic = 6;
+                    Variables.CoalAmountMagic = 18;
                     break;
                 case 7:
-                    Variables.OreAmount = 3;
-                    Variables.CoalAmount = 26;
+                    Variables.OreAmount = 5;
+                    Variables.CoalAmount = 20;
                     Variables.Ore = Constants.RuneOre;
                     Variables.SelectedBar = 7;
                     Variables.Bar = Constants.RuneBar;
+                    Variables.OreAmountMagic = 5;
+                    Variables.CoalAmountMagic = 20;
                     break;
                 default:
                     System.out.println("Something went wrong please contact the developer.");
@@ -142,9 +157,12 @@ public class UI extends JFrame {
                     break;
                 case 1: Variables.Place = 1;
                     break;
+                case 2: Variables.Place = 2;
+                    break;
                 default:
                     System.out.println("Something went wrong please contact the developer.");
             }
+            Variables.StartLevel = Skill.SMITHING.getLevel();
             setVisible(false);
             dispose();
         });

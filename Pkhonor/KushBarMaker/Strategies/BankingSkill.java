@@ -12,7 +12,7 @@ import org.rev317.min.api.wrappers.SceneObject;
 public class BankingSkill implements Strategy {
     @Override
     public boolean activate()  {
-        return (Variables.Place == 1 && !Inventory.contains(Variables.GetOre()));
+        return (Variables.GetPlace() == 1 && !Inventory.contains(Variables.GetOre()));
     }
 
     @Override

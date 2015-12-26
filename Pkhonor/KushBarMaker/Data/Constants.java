@@ -17,11 +17,13 @@ public class Constants {
     public final static int SilverBar = 2356;
     public final static int GoldBar = 2358;
     public final static int MithrilBar =  2360;
-    public final static int AdamantBar = 2362;//probably
-    public final static int RuneBar = 2364;//probably
+    public final static int AdamantBar = 2362;
+    public final static int RuneBar = 2364;
 
     public final static int BarDialog = 2400;
     public final static int Furnace = 2781;
     public final static int FurnaceSkill = 2643;
     public final static int DepositChest = 3193;
+
+    public final static int NatureRune = 562;
 }
