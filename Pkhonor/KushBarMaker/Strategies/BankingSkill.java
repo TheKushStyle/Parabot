@@ -4,10 +4,34 @@ import KushBarMaker.Data.Constants;
 import KushBarMaker.Data.Variables;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.input.Keyboard;
+import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
 import org.rev317.min.Loader;
-import org.rev317.min.api.methods.*;
+import org.rev317.min.api.methods.Game;
+import org.rev317.min.api.methods.Inventory;
+import org.rev317.min.api.methods.Menu;
+import org.rev317.min.api.methods.SceneObjects;
 import org.rev317.min.api.wrappers.SceneObject;
+
+/* BankingSkill.java
+ *
+ * Version 1.0
+ *
+ * Copyright 2014 - 2014 TheKushStyle
+ * BankingSkill.java is part of KushBarMaker.
+ *
+ * KushBarMaker is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * KushBarMaker is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ *  see http://www.gnu.org/licenses/ for more details.
+ */
 
 public class BankingSkill implements Strategy {
     @Override
@@ -17,17 +41,25 @@ public class BankingSkill implements Strategy {
 
     @Override
     public void execute() {
-        SceneObject[] Chest = SceneObjects.getNearest(Constants.DepositChest);
+        SceneObject[] Chest = SceneObjects.getNearest(Constants.DEPOSIT_CHEST);
 
         Chest[0].interact(SceneObjects.Option.FIRST);
-        Time.sleep(() -> Game.getOpenInterfaceId() == 23350, 5000);
+        Time.sleep(new SleepCondition() {
+            @Override
+            public boolean isValid() {
+                return Game.getOpenInterfaceId() == 23350;
+            }
+        }, 5000);
         if (Game.getOpenInterfaceId() == 23350) {
-            Variables.GainedAmount = Variables.GainedAmount + Inventory.getCount(Variables.GetBar());
+            Variables.SetGainedAmount(Variables.GetGainedAmount() + Inventory.getCount(Variables.GetBar()));
             Time.sleep(200);
             Menu.sendAction(646, 1163, 76, 23412, 1);
         }
-        Time.sleep(() -> {
-            return Inventory.isEmpty();
+        Time.sleep(new SleepCondition() {
+            @Override
+            public boolean isValid() {
+                return Inventory.isEmpty();
+            }
         }, 4000);
         Time.sleep(300);
 
@@ -35,26 +67,51 @@ public class BankingSkill implements Strategy {
             Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
             Time.sleep(1200);
             Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
-            Time.sleep(() -> Inventory.getCount(Variables.GetOre()) > 0, 3000);
+            Time.sleep(new SleepCondition() {
+                @Override
+                public boolean isValid() {
+                    return Inventory.getCount(Variables.GetOre()) > 0;
+                }
+            }, 3000);
 
             Menu.sendAction(431, Variables.GetReserveOre(), getBankSlot(Variables.GetReserveOre()), 5382, 4);
             Time.sleep(1200);
             Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetReserveOreAmount()));
-            Time.sleep(() -> (Inventory.getCount(Variables.GetReserveOre()) > 0), 3000);
+            Time.sleep(new SleepCondition() {
+                @Override
+                public boolean isValid() {
+                    return (Inventory.getCount(Variables.GetReserveOre()) > 0);
+                }
+            }, 3000);
         } else if (Inventory.isEmpty()) {
             Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
             Time.sleep(1200);
             Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount()));
-            Time.sleep(() -> (Inventory.getCount(Variables.GetOre()) > 0), 3000);
+            Time.sleep(new SleepCondition() {
+                @Override
+                public boolean isValid() {
+                    return (Inventory.getCount(Variables.GetOre()) > 0);
+                }
+            }, 3000);
 
-            Menu.sendAction(431, Constants.CoalOre, getBankSlot(Constants.CoalOre), 5382, 4);
+            Menu.sendAction(431, Constants.COAL_ORE, getBankSlot(Constants.COAL_ORE), 5382, 4);
             Time.sleep(1200);
             Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetCoalAmount()));
-            Time.sleep(() -> (Inventory.getCount(Constants.CoalOre) > 0), 3000);
+            Time.sleep(new SleepCondition() {
+                @Override
+                public boolean isValid() {
+                    return (Inventory.getCount(Constants.COAL_ORE) > 0);
+                }
+            }, 3000);
         }
 
         Menu.clickButton(5384);
-        Time.sleep(() -> Game.getOpenInterfaceId() != 23350, 3000);
+        Time.sleep(new SleepCondition() {
+            @Override
+            public boolean isValid() {
+                return Game.getOpenInterfaceId() != 23350;
+            }
+        }, 3000);
 
     }
 

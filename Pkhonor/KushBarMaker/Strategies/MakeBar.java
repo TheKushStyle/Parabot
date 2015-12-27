@@ -1,13 +1,33 @@
 package KushBarMaker.Strategies;
 
-
 import KushBarMaker.Data.Constants;
 import KushBarMaker.Data.Variables;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.input.Keyboard;
+import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
 import org.rev317.min.api.methods.*;
 import org.rev317.min.api.wrappers.SceneObject;
+
+/* MakeBar.java
+ *
+ * Version 1.0
+ *
+ * Copyright 2014 - 2014 TheKushStyle
+ * MakeBar.java is part of KushBarMaker.
+ *
+ * KushBarMaker is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * KushBarMaker is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ *  see http://www.gnu.org/licenses/ for more details.
+ */
 
 public class MakeBar implements Strategy {
     @Override
@@ -17,12 +37,18 @@ public class MakeBar implements Strategy {
 
     @Override
     public void execute() {
-        SceneObject[] Furnace = SceneObjects.getNearest(Constants.Furnace);
+        SceneObject[] Furnace = SceneObjects.getNearest(Constants.FURNACE);
+
 
         if (Inventory.contains(Variables.GetOre()) && Furnace != null){
             Furnace[0].interact(SceneObjects.Option.FIRST);
-            Time.sleep(() -> Game.getOpenBackDialogId() == Constants.BarDialog,5600);
-        if (Game.getOpenBackDialogId() == Constants.BarDialog){
+            Time.sleep(new SleepCondition() {
+                @Override
+                public boolean isValid() {
+                    return Game.getOpenBackDialogId() == Constants.BAR_DIALOG;
+                }
+            },5600);
+        if (Game.getOpenBackDialogId() == Constants.BAR_DIALOG){
             Time.sleep(200);
             switch (Variables.GetSelectedBar()) {
                 case 0:
