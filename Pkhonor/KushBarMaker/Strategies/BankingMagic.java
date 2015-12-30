@@ -67,6 +67,7 @@ public class BankingMagic implements Strategy {
                 Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
                 Time.sleep(1200);
                 Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmount() -1));
+                Time.sleep(400);
                 Time.sleep(new SleepCondition() {
                     @Override
                     public boolean isValid() {
@@ -77,6 +78,7 @@ public class BankingMagic implements Strategy {
                 Menu.sendAction(431, Variables.GetReserveOre(), getBankSlot(Variables.GetReserveOre() -1), 5382, 4);
                 Time.sleep(1200);
                 Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetReserveOreAmount()));
+                Time.sleep(400);
                 Time.sleep(new SleepCondition() {
                     @Override
                     public boolean isValid() {
@@ -88,20 +90,22 @@ public class BankingMagic implements Strategy {
                 Menu.sendAction(431, Variables.GetOre(), getBankSlot(Variables.GetOre()), 5382, 4);
                 Time.sleep(1200);
                 Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetOreAmountMagic()));
+                Time.sleep(400);
                 Time.sleep(new SleepCondition() {
                     @Override
                     public boolean isValid() {
-                        return (Inventory.getCount(Variables.GetOre()) > 0);
+                        return (Inventory.getCount(Variables.GetOre()) == Variables.GetOreAmountMagic());
                     }
                 }, 3000);
                 Time.sleep(900);
                 Menu.sendAction(431, Constants.COAL_ORE, getBankSlot(Constants.COAL_ORE), 5382, 4);
                 Time.sleep(1200);
                 Keyboard.getInstance().sendKeys(String.valueOf(Variables.GetCoalAmountMagic()));
+                Time.sleep(400);
                 Time.sleep(new SleepCondition() {
                     @Override
                     public boolean isValid() {
-                        return (Inventory.getCount(Constants.COAL_ORE) > 0);
+                        return (Inventory.getCount(Constants.COAL_ORE) == Variables.GetCoalAmountMagic());
                     }
                 }, 5000);
             }

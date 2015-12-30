@@ -36,6 +36,7 @@ public class Variables {
     private static int Place;
     private static int SelectedBar;
     private static int StartLevel;
+    private static int ResetAmount;
 
     public static void SetOre(int Ore){Variables.Ore = Ore;}
     public static void SetBar(int Bar){Variables.Bar = Bar;}
@@ -50,6 +51,7 @@ public class Variables {
     public static void SetSelectedBar(int SelectedBar){Variables.SelectedBar = SelectedBar;}
     public static void SetStartLevel(int StartLevel){Variables.StartLevel = StartLevel;}
     public static void SetGainedAmount(int GainedAmount){Variables.GainedAmount = GainedAmount;}
+    public static void SetResetAmount(int ResetAmount){Variables.ResetAmount = ResetAmount;}
 
     public static int GetOre(){return Ore;}
     public static int GetGainedLevel(){return (Skill.SMITHING.getLevel() - StartLevel);}
@@ -64,4 +66,5 @@ public class Variables {
     public static int GetCoalAmountMagic(){return CoalAmountMagic;}
     public static int GetFurnace(){return Furnace;}
     public static int GetGainedAmount(){return GainedAmount;}
+    public static int GetResetAmount(){return ResetAmount;}
 }

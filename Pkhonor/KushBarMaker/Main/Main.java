@@ -35,7 +35,7 @@ import java.util.ArrayList;
  *  see http://www.gnu.org/licenses/ for more details.
  */
 
-@ScriptManifest(author = "TheKushStyle",name = "Kush Bar Maker",category = Category.SMITHING,version = 1.4,
+@ScriptManifest(author = "TheKushStyle",name = "Kush Bar Maker",category = Category.SMITHING,version = 1.5,
         description = "Makes Bar's at multiple locations",servers = "Pkhonor")
 public class Main extends Script implements Paintable {
     final ArrayList<Strategy> StuffToDO = new ArrayList<>();
@@ -47,6 +47,7 @@ public class Main extends Script implements Paintable {
         while (GUI.isVisible()) {
             sleep(20);
         }
+        StuffToDO.add(new CheckMod());
         if (Variables.GetPlace() == 0) {
             StuffToDO.add(new MakeBar());
             StuffToDO.add(new Banking());
@@ -73,6 +74,7 @@ public class Main extends Script implements Paintable {
         graphics.setColor(Color.green);
         graphics.drawImage(imgchat, 0, 337, null);
         graphics.setFont(font1);
+        graphics.drawString("Mod Time Outs: " + Variables.GetResetAmount(), 300, 380);
         graphics.drawString("Levels Gained: " + Variables.GetGainedLevel(), 300, 400);
         graphics.drawString("Current Level: " + Skill.SMITHING.getLevel(), 300, 420);
         graphics.drawString("Total Produce: " + Variables.GetGainedAmount(), 300, 440);
